@@ -5,6 +5,7 @@ const express = require("express"),
 
 const app = express()
 app.set("port", process.env.PORT || 5000)
+app.use(express.static(__dirname))
 
 const server = http.createServer(app).listen(app.get("port"), () => {
     console.log(`[${dayjs().format("YYYY-MM-DD HH:mm:ss")}] SERVER STARTED. PORT: ${app.get("port")}`)
@@ -49,3 +50,7 @@ io.on("connection", socket => {
         users.splice(users.indexOf(username), 1)
     })
 })
+
+function log(message) {
+    document.getElementById("log").append("\n" + message)
+}
