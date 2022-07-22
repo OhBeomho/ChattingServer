@@ -1,0 +1,17 @@
+{
+  "name": "chattingserver2",
+  "version": "1.0.1",
+  "description": "Chatting Server",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "author": "OhBeomho",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.4",
+    "express": "^4.18.1",
+    "socket.io": "^4.5.1"
+  }
+}
