@@ -22,12 +22,13 @@ io.on("connection", socket => {
     
     console.log(`[${dayjs().format("YYYY-MM-DD HH:mm:ss")}] CLIENT ${id} CONNECTED.`)
 
+    // 사용자명 중복검사
     socket.on("name", data => {
         if (users.includes(data.message)) {
             socket.emit("name", "EXISTS")
             return
         }
-    
+
         username = data.message
         users.push(data.message)
 
@@ -39,6 +40,7 @@ io.on("connection", socket => {
 
         console.log(`[${dayjs().format("YYYY-MM-DD HH:mm:ss")}] CLIENT ${id}: SET NAME = ${data.message}`)
     })
+    // 채팅
     socket.on("chatting", data => {
         const {
             name,
@@ -50,6 +52,7 @@ io.on("connection", socket => {
             time: dayjs().format("A h:mm")
         })
     })
+    // 접속 해제
     socket.on("disconnect", () => {
         users.splice(users.indexOf(username), 1)
         io.emit("server", {
