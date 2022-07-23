@@ -29,9 +29,13 @@ io.on("connection", socket => {
 
         username = data.message
         users.push(data.message)
-        socket.emit("name", "SUCCESS")
-        io.emit("server", username + "님이 들어왔습니다.")
         console.log(`[${dayjs().format("YYYY-MM-DD HH:mm:ss")}] CLIENT ${id}: SET NAME = ${data.message}`)
+
+        socket.emit("name", "SUCCESS")
+        io.emit("server", {
+            online: users.length,
+            message: username + "님이 들어왔습니다."
+        })
     })
     socket.on("chatting", data => {
         const {
@@ -45,8 +49,12 @@ io.on("connection", socket => {
         })
     })
     socket.on("disconnect", () => {
-        io.emit("server", username + "님이 나갔습니다.")
         console.log(`[${dayjs().format("YYYY-MM-DD HH:mm:ss")}] CLIENT DISCONNECTED. INFO:`, socket.request.connection._peername)
         users.splice(users.indexOf(username), 1)
+
+        io.emit("server", {
+            online: users.length,
+            message: username + "님이 나갔습니다."
+        })
     })
 })
